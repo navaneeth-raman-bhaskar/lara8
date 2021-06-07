@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Models\Post;
+namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class File extends Model
 {
 
 }
