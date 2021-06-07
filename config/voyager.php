@@ -189,11 +189,13 @@ return [
 
     // Here you can specify additional assets you would like to be included in the master.blade
     'additional_css' => [
+        'css/plugins/jquery-confirm.css',
         //'css/custom.css',
     ],
 
     'additional_js' => [
-        //'js/custom.js',
+        'js/plugins/jquery-confirm/jquery-confirm.min.js',
+        'js/custom.js',
     ],
 
     'googlemaps' => [

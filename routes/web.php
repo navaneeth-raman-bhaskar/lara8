@@ -28,3 +28,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::delete('/product/price/{id}')->name('product.remove-price');

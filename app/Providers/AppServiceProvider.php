@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\CustomAction;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 
@@ -26,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Voyager::addAction(CustomAction::class);
+
+        Request::macro('isShow', function () {
+            return $this->route()->getActionMethod() === 'show';
+        });
     }
 }
