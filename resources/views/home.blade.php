@@ -6,8 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-{{--                {{menu('welcome_nav','cms/nav')}}--}}{{--(menu name, view name)--}}
-                {{menu('welcome_nav')}}
+           {{menu('welcome_nav','cms/nav')}}{{--(menu name, view name)--}}
                 </div>
 
                 <div class="card-body">

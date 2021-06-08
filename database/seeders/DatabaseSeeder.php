@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Qualification;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,5 +15,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        $this->call([
+            EmployeeSeeder::class,
+            LocationSeeder::class,
+            Qualification::class,
+            SkillSeeder::class,
+            JobSeeder::class,
+            CountrySeeder::class,
+            CurrencySeeder::class,
+        ]);
     }
 }

@@ -16,7 +16,6 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
-        "pvtl/voyager-blog": "^0.2.10",
         "tcg/voyager": "^1.4"
     },
     "require-dev": {

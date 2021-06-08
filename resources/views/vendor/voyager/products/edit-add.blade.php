@@ -76,10 +76,10 @@
                                 </div>
                             @endforeach
 
-                                @include('vendor.voyager.products.extra')
-
                         </div><!-- panel-body -->
-
+                        <div class="panel-body">
+                        @include('vendor.voyager.products.extra')
+                        </div>
                         <div class="panel-footer">
                            @include('vendor.voyager.bread.partials.default_submit')
                         </div>

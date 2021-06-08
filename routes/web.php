@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,9 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::delete('/product/price/{price}',[ProductController::class,'deletePrice'])->name('product.remove-price');
+Route::delete('/product/price/{price}', [ProductController::class, 'deletePrice'])->name('product.remove-price');
+
+
+Route::resource('jobs', 'JobController')->only('index', 'show');
+Route::get('jobs/apply', [JobController::class, 'apply']);
+Route::get('jobs/applied', [JobController::class, 'applied']);
