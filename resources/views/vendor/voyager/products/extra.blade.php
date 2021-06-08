@@ -34,7 +34,7 @@
                 {{Form::text('point_value[]',$price->point_value)}}
             </td>
             <td>
-                <x-remove-row url="{{route('product.remove-price',['id'=>$price->id])}}" />
+                <x-remove-row url="{{$price->exists?route('product.remove-price',['price'=>$price->id]):''}}" />
             </td>
         </tr>
     @endforeach

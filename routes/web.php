@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,4 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::delete('/product/price/{id}')->name('product.remove-price');
+Route::delete('/product/price/{price}',[ProductController::class,'deletePrice'])->name('product.remove-price');

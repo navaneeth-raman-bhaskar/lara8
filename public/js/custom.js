@@ -1,5 +1,5 @@
 class DynamicRow {
-    constructor(form, body = '#tbody', add = '#addRow', callBack = false) {
+    constructor(form, body = '#tBody', add = '#addRow', callBack = false) {
         this._callBack = callBack;
         this._tBody = form.find(body);
         this._addRow = form.find(add);
@@ -21,7 +21,7 @@ class DynamicRow {
         $obj._tBody.on('click', '.removeRow', function () {
             $obj._rButton = $(this);
             if ($obj._rButton.data('url')) {
-                Ajax.delete($obj._rButton.data('url'), $obj.callDelete);
+                Ajax.delete($obj._rButton.data('url'), $obj.callDelete.bind($obj));
             } else {
                 $obj.callDelete();
             }
