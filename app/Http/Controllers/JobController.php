@@ -13,7 +13,7 @@ class JobController extends Controller
         return view('job.index')->with(compact('jobs'));
     }
 
-    protected function show(Request $request,Job $job)
+    protected function show(Request $request, Job $job)
     {
         $job->load('');
     }
