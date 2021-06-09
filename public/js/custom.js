@@ -670,6 +670,83 @@ class Loader {
     }
 }
 
+class Action {
+    // Context Menu Build
+    static show(event, url, row, callBack ,header , method = 'POST', data = '') {
+        event.preventDefault();
+        $.ajax({
+            url: url,
+            type: method,
+            dataType: 'html',
+            data: data,
+            success: function (res) {
+                $("#context-menu").remove();
+                let menu = $("<div id='context-menu' class='context-menu-list'></div>");
+
+                menu.html(Action._build(res, header??row.find('td').eq(1).html()));
+                $('body').append(menu);
+                //hide menu if already shown
+                //get x and y values of the click event
+                let contextMenu = menu.find('#context-dropdown'),
+                    pageX = event.pageX + 3,
+                    pageY = event.pageY - 18;
+                //position menu div near mouse clicked area
+                contextMenu.css({top: pageY, left: pageX});
+                //  setTimeout(function () {
+                let mWidth = contextMenu.width();
+                let mHeight = contextMenu.height();
+
+                let screenWidth = $(window).width();
+                let screenHeight = $(window).height();
+                //if window is scrolled
+                let scrTop = $(window).scrollTop();
+                //if the menu is close to right edge of the window
+                if (pageX + mWidth > screenWidth) {
+                    contextMenu.css({left: pageX - mWidth});
+                    contextMenu.find("#context-sub-dropdown").removeClass('arrow-left').addClass('open-left arrow-right')
+                }
+                //if the menu is close to bottom edge of the window
+                if (pageY + mHeight > screenHeight + scrTop) {
+                    contextMenu.css({top: pageY - mHeight});
+                }
+                // }, 0);
+                Action._eventRegister();
+                if (callBack && typeof callBack === 'function')
+                    callBack(row,menu);
+            },
+            error: function (err) {
+                let responseJSON = err.responseJSON,
+                    message = responseJSON ? responseJSON.message : err.responseText;
+                Popup.error(message);
+            }
+        });
+    }
+
+    static _build(resp, header = 'Menu') {
+        if (resp) {
+            let optionContainer = document.createElement('div');
+            optionContainer.setAttribute('class', 'dropdown-menu arrow-left show');
+            optionContainer.setAttribute('id', 'context-dropdown');
+            optionContainer.innerHTML = "<h4 class='dropdown-header'>" + header + "</h4>";
+            $(optionContainer).append(resp)
+            return optionContainer;
+        }
+        return false;
+    }
+
+    static _eventRegister() {
+        $(window).on('mousedown focus', function (e) {
+            if (!$(e.target).parents("#context-menu").length > 0) {
+                $("#context-menu").remove();
+            }
+        });
+
+        $(document).on("click", '#context-menu *', function () {
+            $(this).closest('#context-menu').remove();
+        });
+    }
+}
+
 
 $.fn.cloneRow = function (disabled = false) {
     let select, newRow = this.clone();

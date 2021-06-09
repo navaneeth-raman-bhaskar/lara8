@@ -36,7 +36,7 @@ class ProductController extends VoyagerBaseController
             if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
                 $query = $query->withTrashed();
             }
-            if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
+            if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope' . ucfirst($dataType->scope))) {
                 $query = $query->{$dataType->scope}();
             }
             $dataTypeContent = call_user_func([$query, 'findOrFail'], $id);
@@ -69,9 +69,9 @@ class ProductController extends VoyagerBaseController
             $view = "voyager::$slug.read";
         }
 
-        $countries=Country::all();
-        $currencies=Currency::all();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'isSoftDeleted','countries','currencies'));
+        $countries = Country::all();
+        $currencies = Currency::all();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'isSoftDeleted', 'countries', 'currencies'));
     }
 
 
@@ -89,7 +89,7 @@ class ProductController extends VoyagerBaseController
             if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
                 $query = $query->withTrashed();
             }
-            if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
+            if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope' . ucfirst($dataType->scope))) {
                 $query = $query->{$dataType->scope}();
             }
             $dataTypeContent = call_user_func([$query, 'findOrFail'], $id);
@@ -119,9 +119,9 @@ class ProductController extends VoyagerBaseController
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-        $countries=Country::all();
-        $currencies=Currency::all();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','countries','currencies'));
+        $countries = Country::all();
+        $currencies = Currency::all();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'countries', 'currencies'));
     }
 
     // POST BR(E)AD
@@ -136,7 +136,7 @@ class ProductController extends VoyagerBaseController
 
         $model = app($dataType->model_name);
         $query = $model->query();
-        if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
+        if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope' . ucfirst($dataType->scope))) {
             $query = $query->{$dataType->scope}();
         }
         if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
@@ -159,9 +159,9 @@ class ProductController extends VoyagerBaseController
             });
         $original_data = clone($data);
 
-        DB::transaction(function () use ($request, $slug, $dataType,$data){
-            $this->insertUpdateData($request, $slug,  $dataType->editRows, $data);
-            /**@var Product $data*/
+        DB::transaction(function () use ($request, $slug, $dataType, $data) {
+            $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
+            /**@var Product $data */
             $data->savePrices($request);
         });
         // Delete Images
@@ -176,7 +176,7 @@ class ProductController extends VoyagerBaseController
         }
 
         return $redirect->with([
-            'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
+            'message' => __('voyager::generic.successfully_updated') . " {$dataType->getTranslatedAttribute('display_name_singular')}",
             'alert-type' => 'success',
         ]);
     }
@@ -213,10 +213,10 @@ class ProductController extends VoyagerBaseController
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-        $countries=Country::all();
-        $currencies=Currency::all();
+        $countries = Country::all();
+        $currencies = Currency::all();
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','currencies','countries'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'currencies', 'countries'));
     }
 
 
@@ -232,10 +232,10 @@ class ProductController extends VoyagerBaseController
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
         resolve(ProductPriceRequest::class);
-        $data=null;
-        DB::transaction(function () use ($request, $slug, $dataType,$data){
+        $data = null;
+        DB::transaction(function () use ($request, $slug, $dataType, $data) {
             $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
-            /**@var Product $data*/
+            /**@var Product $data */
             $data->savePrices($request);
         });
 
@@ -249,7 +249,7 @@ class ProductController extends VoyagerBaseController
             }
 
             return $redirect->with([
-                'message'    => __('voyager::generic.successfully_added_new')." {$dataType->getTranslatedAttribute('display_name_singular')}",
+                'message' => __('voyager::generic.successfully_added_new') . " {$dataType->getTranslatedAttribute('display_name_singular')}",
                 'alert-type' => 'success',
             ]);
         } else {
@@ -290,11 +290,11 @@ class ProductController extends VoyagerBaseController
         $res = $data->destroy($ids);
         $data = $res
             ? [
-                'message'    => __('voyager::generic.successfully_deleted')." {$displayName}",
+                'message' => __('voyager::generic.successfully_deleted') . " {$displayName}",
                 'alert-type' => 'success',
             ]
             : [
-                'message'    => __('voyager::generic.error_deleting')." {$displayName}",
+                'message' => __('voyager::generic.error_deleting') . " {$displayName}",
                 'alert-type' => 'error',
             ];
 
@@ -308,9 +308,31 @@ class ProductController extends VoyagerBaseController
     protected function deletePrice(Price $price)
     {
         $price->delete();
-        return successResponse('Successfully deleted',[],200);
+        return successResponse('Successfully deleted', [], 200);
     }
 
     //*/
 
+    protected function actionButton($slug, $id)
+    {
+
+        // GET THE DataType based on the slug
+        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+        $model = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+
+        $actions = [];
+        foreach (Voyager::actions() as $action) {
+            $action = new $action($dataType, $model);
+
+            if ($action->shouldActionDisplayOnDataType()) {
+                $actions[] = $action;
+            }
+        }
+
+        $render = view('vendor.voyager.products.partials.actions')
+            ->with('data', $model)->with(compact('actions', 'dataType'))->render();
+
+        return $render;
+    }
 }

@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+Route::post('/admin/{model}/action/{id}', [ProductController::class, 'actionButton']);
 
 Route::delete('/product/price/{price}', [ProductController::class, 'deletePrice'])->name('product.remove-price');
 
