@@ -21,9 +21,10 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             Qualification::class,
             SkillSeeder::class,
-            JobSeeder::class,
             CountrySeeder::class,
             CurrencySeeder::class,
+            JobSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

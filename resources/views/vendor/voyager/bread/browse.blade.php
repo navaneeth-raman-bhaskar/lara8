@@ -57,6 +57,7 @@
                                         <select id="filter" name="filter">
                                             <option value="contains" @if($search->filter == "contains") selected @endif>contains</option>
                                             <option value="equals" @if($search->filter == "equals") selected @endif>=</option>
+                                            <option value="smart" @if($search->filter == "smart") selected @endif>smart</option>
                                         </select>
                                     </div>
                                     <div class="input-group col-md-12">
