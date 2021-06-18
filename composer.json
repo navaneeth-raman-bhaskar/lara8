@@ -7,6 +7,15 @@
         "laravel"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:navaneeth-raman-bhaskar/text-image.git"
+        },{
+            "type": "vcs",
+            "url": "git@github.com:navaneeth-raman-bhaskar/tools.git"
+        }
+    ],
     "require": {
         "php": "^7.4",
         "fideloper/proxy": "^4.4",
@@ -16,6 +25,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
+        "navaneeth-raman-bhaskar/text-image": "dev-master",
         "tcg/voyager": "^1.4"
     },
     "require-dev": {
@@ -65,15 +75,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "hooks": {
-            "type": "composer",
-            "url": "https://larapack.io"
-        },
-        "": {
-            "type": "path",
-            "url": "hooks/"
-        }
-    }
+    "prefer-stable": true
 }
